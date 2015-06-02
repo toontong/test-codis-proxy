@@ -63,6 +63,8 @@ func main() {
 	log.SetLevel(LogLevel[*loglevel])
 
 	store, err := nosql.NewRedisStore(*host, *port, *db)
+	store.SetMaxIdle(conn+10)
+	store.SetMaxActive(conn+10)
 	if err != nil {
 		panic("connect redis error")
 	}
